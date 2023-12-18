@@ -63,6 +63,7 @@ public class OperateView extends View
 		super(context);
 //		this.mContext = context;
 		bgBmp = resizeBmp;
+		if (bgBmp==null) return;
 		int width = bgBmp.getWidth();
 		int height = bgBmp.getHeight();
 		mCanvasLimits = new Rect(0, 0, width, height);

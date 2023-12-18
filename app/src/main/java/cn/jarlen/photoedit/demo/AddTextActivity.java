@@ -243,48 +243,37 @@ public class AddTextActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.color:
-                menuWindow = new SelectColorPopup(AddTextActivity.this,
-                        AddTextActivity.this);
-                // 显示窗口
-                menuWindow.showAtLocation(
-                        AddTextActivity.this.findViewById(R.id.main),
-                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                break;
-            case R.id.submit:
-                menuWindow.dismiss();
-                break;
-            case R.id.family:
-                if (face_linear.getVisibility() == View.GONE) {
-                    face_linear.setVisibility(View.VISIBLE);
-                } else {
-                    face_linear.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.addtext:
-                addfont();
-                break;
-            case R.id.btn_ok:
-                btnSave();
-                break;
-            case R.id.btn_cancel:
-                finish();
-                break;
-            case R.id.moren:
-                typeface = null;
+        int id = v.getId();
+        if (id == R.id.color) {
+            menuWindow = new SelectColorPopup(AddTextActivity.this,
+                    AddTextActivity.this);
+            // 显示窗口
+            menuWindow.showAtLocation(
+                    AddTextActivity.this.findViewById(R.id.main),
+                    Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        } else if (id == R.id.submit) {
+            menuWindow.dismiss();
+        } else if (id == R.id.family) {
+            if (face_linear.getVisibility() == View.GONE) {
+                face_linear.setVisibility(View.VISIBLE);
+            } else {
                 face_linear.setVisibility(View.GONE);
-                break;
-            case R.id.faceby:
-                typeface = OperateConstants.FACE_BY;
-                face_linear.setVisibility(View.GONE);
-                break;
-            case R.id.facebygf:
-                typeface = OperateConstants.FACE_BYGF;
-                face_linear.setVisibility(View.GONE);
-                break;
-            default:
-                break;
+            }
+        } else if (id == R.id.addtext) {
+            addfont();
+        } else if (id == R.id.btn_ok) {
+            btnSave();
+        } else if (id == R.id.btn_cancel) {
+            finish();
+        } else if (id == R.id.moren) {
+            typeface = null;
+            face_linear.setVisibility(View.GONE);
+        } else if (id == R.id.faceby) {
+            typeface = OperateConstants.FACE_BY;
+            face_linear.setVisibility(View.GONE);
+        } else if (id == R.id.facebygf) {
+            typeface = OperateConstants.FACE_BYGF;
+            face_linear.setVisibility(View.GONE);
         }
 
     }

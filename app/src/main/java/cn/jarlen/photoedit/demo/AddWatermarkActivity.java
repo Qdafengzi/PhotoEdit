@@ -205,55 +205,37 @@ public class AddWatermarkActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
-            case R.id.chunvzuo :
-                addpic(watermark[0]);
-                break;
-            case R.id.shenhuifu :
-                addpic(watermark[1]);
-                break;
-            case R.id.qiugouda :
-                addpic(watermark[2]);
-                break;
-            case R.id.guaishushu :
-                addpic(watermark[3]);
-                break;
-            case R.id.haoxingzuo :
-                addpic(watermark[4]);
-                break;
-            case R.id.wanhuaile :
-                addpic(watermark[5]);
-                break;
-            case R.id.xiangsi :
-                addpic(watermark[6]);
-                break;
-            case R.id.xingzuokong :
-                addpic(watermark[7]);
-                break;
-            case R.id.xinnian :
-                addpic(watermark[8]);
-                break;
-            case R.id.zaoan :
-                addpic(watermark[9]);
-                break;
-            case R.id.zuile :
-                addpic(watermark[10]);
-                break;
-            case R.id.jiuyaozuo :
-                addpic(watermark[11]);
-                break;
-            case R.id.zui :
-                addpic(watermark[12]);
-                break;
-            case R.id.btn_ok :
-                btnSave();
-                break;
-            case R.id.btn_cancel :
-                finish();
-                break;
-            default :
-                break;
+        int id = v.getId();
+        if (id == R.id.chunvzuo) {
+            addpic(watermark[0]);
+        } else if (id == R.id.shenhuifu) {
+            addpic(watermark[1]);
+        } else if (id == R.id.qiugouda) {
+            addpic(watermark[2]);
+        } else if (id == R.id.guaishushu) {
+            addpic(watermark[3]);
+        } else if (id == R.id.haoxingzuo) {
+            addpic(watermark[4]);
+        } else if (id == R.id.wanhuaile) {
+            addpic(watermark[5]);
+        } else if (id == R.id.xiangsi) {
+            addpic(watermark[6]);
+        } else if (id == R.id.xingzuokong) {
+            addpic(watermark[7]);
+        } else if (id == R.id.xinnian) {
+            addpic(watermark[8]);
+        } else if (id == R.id.zaoan) {
+            addpic(watermark[9]);
+        } else if (id == R.id.zuile) {
+            addpic(watermark[10]);
+        } else if (id == R.id.jiuyaozuo) {
+            addpic(watermark[11]);
+        } else if (id == R.id.zui) {
+            addpic(watermark[12]);
+        } else if (id == R.id.btn_ok) {
+            btnSave();
+        } else if (id == R.id.btn_cancel) {
+            finish();
         }
 
     }

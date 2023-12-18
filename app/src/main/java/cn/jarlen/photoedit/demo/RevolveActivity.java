@@ -85,51 +85,33 @@ public class RevolveActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view)
     {
-        switch (view.getId())
-        {
-            case R.id.btn_cancel :
+        int id = view.getId();
+        if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
 
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
+            recycle();
+            this.finish();
+        } else if (id == R.id.btn_ok) {
+            FileUtils.writeImage(bit, camera_path, 100);
 
-                recycle();
-                this.finish();
-                break;
-
-            case R.id.btn_ok :
-
-                FileUtils.writeImage(bit, camera_path, 100);
-
-                Intent intent = new Intent();
-                intent.putExtra("camera_path", camera_path);
-                setResult(Activity.RESULT_OK, intent);
-                recycle();
-                this.finish();
-                break;
-
-            case R.id.revoleTest :
-                bit = PhotoUtils.rotateImage(bit, 90);
-                pictureShow.setImageBitmap(bit);
-                break;
-
-            case R.id.fanTestLeftRight :
-                bit = PhotoUtils.reverseImage(bit, -1, 1);
-                pictureShow.setImageBitmap(bit);
-                break;
-
-            case R.id.fanTestUpDown :
-                bit = PhotoUtils.reverseImage(bit, 1, -1);
-                pictureShow.setImageBitmap(bit);
-
-                break;
-            case R.id.unTest :
-                bit = srcBitmap;
-                pictureShow.setImageBitmap(bit);
-                break;
-
-            default :
-
-                break;
+            Intent intent = new Intent();
+            intent.putExtra("camera_path", camera_path);
+            setResult(Activity.RESULT_OK, intent);
+            recycle();
+            this.finish();
+        } else if (id == R.id.revoleTest) {
+            bit = PhotoUtils.rotateImage(bit, 90);
+            pictureShow.setImageBitmap(bit);
+        } else if (id == R.id.fanTestLeftRight) {
+            bit = PhotoUtils.reverseImage(bit, -1, 1);
+            pictureShow.setImageBitmap(bit);
+        } else if (id == R.id.fanTestUpDown) {
+            bit = PhotoUtils.reverseImage(bit, 1, -1);
+            pictureShow.setImageBitmap(bit);
+        } else if (id == R.id.unTest) {
+            bit = srcBitmap;
+            pictureShow.setImageBitmap(bit);
         }
 
     }

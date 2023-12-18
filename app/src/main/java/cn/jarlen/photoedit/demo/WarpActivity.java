@@ -108,32 +108,23 @@ public class WarpActivity extends Activity implements View.OnClickListener {
     public void onClick(View view)
     {
 
-        switch (view.getId())
-        {
-            case R.id.btn_cancel :
+        int id = view.getId();
+        if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
 
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
+            recycle();
+            this.finish();
+        } else if (id == R.id.btn_ok) {
+            Bitmap bit = image.getWrapBitmap();
+            FileUtils.writeImage(bit, warpPicturePath, 100);
 
-                recycle();
-                this.finish();
+            Intent okData = new Intent();
+            okData.putExtra("camera_path", warpPicturePath);
+            setResult(RESULT_OK, okData);
 
-                break;
-            case R.id.btn_ok :
-
-                Bitmap bit = image.getWrapBitmap();
-                FileUtils.writeImage(bit, warpPicturePath, 100);
-
-                Intent okData = new Intent();
-                okData.putExtra("camera_path", warpPicturePath);
-                setResult(RESULT_OK, okData);
-
-                recycle();
-                this.finish();
-                break;
-
-            default :
-                break;
+            recycle();
+            this.finish();
         }
 
     }

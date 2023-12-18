@@ -158,33 +158,28 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.addPictureFromCamera:
-                getPictureFormCamera();
-                break;
-            case R.id.addPictureFromPhoto:
-                getPictureFromPhoto();
-                break;
-            case R.id.testBtn:
-                if (photoPath == null) {
-                    Toast.makeText(MainActivity.this, "请选择图片",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (intentClass == null) {
-                    Toast.makeText(MainActivity.this, "请图片操作类型",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                // 将图片路径photoPath传到所要调试的模块
-                Intent photoFrameIntent = new Intent(MainActivity.this,
-                        intentClass);
-                photoFrameIntent.putExtra("camera_path", camera_path);
-                MainActivity.this.startActivityForResult(photoFrameIntent,
-                        intentType);
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.addPictureFromCamera) {
+            getPictureFormCamera();
+        } else if (id == R.id.addPictureFromPhoto) {
+            getPictureFromPhoto();
+        } else if (id == R.id.testBtn) {
+            if (photoPath == null) {
+                Toast.makeText(MainActivity.this, "请选择图片",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (intentClass == null) {
+                Toast.makeText(MainActivity.this, "请图片操作类型",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // 将图片路径photoPath传到所要调试的模块
+            Intent photoFrameIntent = new Intent(MainActivity.this,
+                    intentClass);
+            photoFrameIntent.putExtra("camera_path", camera_path);
+            MainActivity.this.startActivityForResult(photoFrameIntent,
+                    intentType);
         }
 
     }
@@ -342,52 +337,40 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
             return true;
         }
 
-        switch (item.getItemId()) {
-            case R.id.action_filter:
-                intentClass = ImageFilterActivity.class;
-                intentType = PHOTO_FILTER_WITH_DATA;
-
-                break;
-            case R.id.action_wrap:
-                intentClass = WarpActivity.class;
-                intentType = PHOTO_WARP_WITH_DATA;
-                break;
-            case R.id.action_crop:
-                intentClass = ImageCropActivity.class;
-                intentType = PHOTO_CROP_WITH_DATA;
-                break;
-            case R.id.action_draw:
-                intentClass = DrawBaseActivity.class;
-                intentType = PHOTO_DRAW_WITH_DATA;
-                break;
-            case R.id.action_frame:
-                intentClass = PhotoFrameActivity.class;
-                intentType = PHOTO_FRAME_WITH_DATA;
-                break;
-            case R.id.action_addtv:
-                intentClass = AddTextActivity.class;
-                intentType = PHOTO_ADD_TEXT_DATA;
-                break;
-            case R.id.action_addwm:
-                intentClass = AddWatermarkActivity.class;
-                intentType = PHOTO_ADD_WATERMARK_DATA;
-                break;
-            case R.id.action_mosaic:
-                intentClass = MosaicActivity.class;
-                intentType = PHOTO_MOSAIC_WITH_DATA;
-                break;
-            case R.id.action_enchance:
-                intentClass = EnhanceActivity.class;
-                intentType = PHOTO_ENHANCE_WITH_DATA;
-                break;
-            case R.id.action_rotate:
-                intentClass = RevolveActivity.class;
-                intentType = PHOTO_REVOLVE_WITH_DATA;
-                break;
-            default:
-                intentClass = null;
-                intentType = 0;
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_filter) {
+            intentClass = ImageFilterActivity.class;
+            intentType = PHOTO_FILTER_WITH_DATA;
+        } else if (itemId == R.id.action_wrap) {
+            intentClass = WarpActivity.class;
+            intentType = PHOTO_WARP_WITH_DATA;
+        } else if (itemId == R.id.action_crop) {
+            intentClass = ImageCropActivity.class;
+            intentType = PHOTO_CROP_WITH_DATA;
+        } else if (itemId == R.id.action_draw) {
+            intentClass = DrawBaseActivity.class;
+            intentType = PHOTO_DRAW_WITH_DATA;
+        } else if (itemId == R.id.action_frame) {
+            intentClass = PhotoFrameActivity.class;
+            intentType = PHOTO_FRAME_WITH_DATA;
+        } else if (itemId == R.id.action_addtv) {
+            intentClass = AddTextActivity.class;
+            intentType = PHOTO_ADD_TEXT_DATA;
+        } else if (itemId == R.id.action_addwm) {
+            intentClass = AddWatermarkActivity.class;
+            intentType = PHOTO_ADD_WATERMARK_DATA;
+        } else if (itemId == R.id.action_mosaic) {
+            intentClass = MosaicActivity.class;
+            intentType = PHOTO_MOSAIC_WITH_DATA;
+        } else if (itemId == R.id.action_enchance) {
+            intentClass = EnhanceActivity.class;
+            intentType = PHOTO_ENHANCE_WITH_DATA;
+        } else if (itemId == R.id.action_rotate) {
+            intentClass = RevolveActivity.class;
+            intentType = PHOTO_REVOLVE_WITH_DATA;
+        } else {
+            intentClass = null;
+            intentType = 0;
         }
 
         Toast.makeText(MainActivity.this, "请点击测试按钮", Toast.LENGTH_SHORT).show();

@@ -94,27 +94,20 @@ public class PhotoFrameActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-        switch (view.getId())
-        {
-            case R.id.btn_cancel :
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
-                recycle();
-                this.finish();
-                break;
-            case R.id.btn_ok :
+        int id = view.getId();
+        if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
+            recycle();
+            this.finish();
+        } else if (id == R.id.btn_ok) {
+            FileUtils.writeImage(mTmpBmp, photoResPath, 100);
 
-                FileUtils.writeImage(mTmpBmp, photoResPath, 100);
-
-                Intent okData = new Intent();
-                okData.putExtra("camera_path", photoResPath);
-                setResult(RESULT_OK, okData);
-                recycle();
-                this.finish();
-                break;
-
-            default :
-                break;
+            Intent okData = new Intent();
+            okData.putExtra("camera_path", photoResPath);
+            setResult(RESULT_OK, okData);
+            recycle();
+            this.finish();
         }
     }
 
@@ -129,52 +122,36 @@ public class PhotoFrameActivity extends Activity implements View.OnClickListener
         @Override
         public void onClick(View view)
         {
-            switch (view.getId())
-            {
+            int id = view.getId();
+            if (id == R.id.photoRes_one) {
+                mImageFrame.setFrameType(PhotoFrame.FRAME_SMALL);
+                mImageFrame.setFrameResources(
+                        R.drawable.frame_around1_left_top,
+                        R.drawable.frame_around1_left,
+                        R.drawable.frame_around1_left_bottom,
+                        R.drawable.frame_around1_bottom,
+                        R.drawable.frame_around1_right_bottom,
+                        R.drawable.frame_around1_right,
+                        R.drawable.frame_around1_right_top,
+                        R.drawable.frame_around1_top);
+                mTmpBmp = mImageFrame.combineFrameRes();
+            } else if (id == R.id.photoRes_two) {
+                mImageFrame.setFrameType(PhotoFrame.FRAME_SMALL);
+                mImageFrame.setFrameResources(
+                        R.drawable.frame_around2_left_top,
+                        R.drawable.frame_around2_left,
+                        R.drawable.frame_around2_left_bottom,
+                        R.drawable.frame_around2_bottom,
+                        R.drawable.frame_around2_right_bottom,
+                        R.drawable.frame_around2_right,
+                        R.drawable.frame_around2_right_top,
+                        R.drawable.frame_around2_top);
+                mTmpBmp = mImageFrame.combineFrameRes();
+            } else if (id == R.id.photoRes_three) {
+                mImageFrame.setFrameType(PhotoFrame.FRAME_BIG);
+                mImageFrame.setFrameResources(R.drawable.frame_big1);
 
-                case R.id.photoRes_one :
-
-                    mImageFrame.setFrameType(PhotoFrame.FRAME_SMALL);
-                    mImageFrame.setFrameResources(
-                            R.drawable.frame_around1_left_top,
-                            R.drawable.frame_around1_left,
-                            R.drawable.frame_around1_left_bottom,
-                            R.drawable.frame_around1_bottom,
-                            R.drawable.frame_around1_right_bottom,
-                            R.drawable.frame_around1_right,
-                            R.drawable.frame_around1_right_top,
-                            R.drawable.frame_around1_top);
-                    mTmpBmp = mImageFrame.combineFrameRes();
-
-                    break;
-
-                case R.id.photoRes_two :
-
-                    mImageFrame.setFrameType(PhotoFrame.FRAME_SMALL);
-                    mImageFrame.setFrameResources(
-                            R.drawable.frame_around2_left_top,
-                            R.drawable.frame_around2_left,
-                            R.drawable.frame_around2_left_bottom,
-                            R.drawable.frame_around2_bottom,
-                            R.drawable.frame_around2_right_bottom,
-                            R.drawable.frame_around2_right,
-                            R.drawable.frame_around2_right_top,
-                            R.drawable.frame_around2_top);
-                    mTmpBmp = mImageFrame.combineFrameRes();
-
-                    break;
-
-                case R.id.photoRes_three :
-                    mImageFrame.setFrameType(PhotoFrame.FRAME_BIG);
-                    mImageFrame.setFrameResources(R.drawable.frame_big1);
-
-                    mTmpBmp = mImageFrame.combineFrameRes();
-
-                    break;
-
-                default :
-                    break;
-
+                mTmpBmp = mImageFrame.combineFrameRes();
             }
             reset();
 

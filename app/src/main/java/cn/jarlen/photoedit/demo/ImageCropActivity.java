@@ -84,70 +84,56 @@ public class ImageCropActivity extends Activity implements Toolbar.OnMenuItemCli
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.action_freedom:
-                cropImage.setFixedAspectRatio(false);
-                break;
-            case R.id.action_1_1:
-                cropImage.setFixedAspectRatio(true);
-                cropImage.setAspectRatio(10, 10);
-                break;
-            case R.id.action_3_2:
-                cropImage.setFixedAspectRatio(true);
-                cropImage.setAspectRatio(30, 20);
-                break;
-
-            case R.id.action_4_3:
-                cropImage.setFixedAspectRatio(true);
-                cropImage.setAspectRatio(40, 30);
-                break;
-            case R.id.action_16_9:
-                cropImage.setFixedAspectRatio(true);
-                cropImage.setAspectRatio(160, 90);
-                break;
-            case R.id.action_rotate:
-                cropImage.rotateImage(90);
-                break;
-            case R.id.action_up_down:
-                cropImage.reverseImage(CropImageType.REVERSE_TYPE.UP_DOWN);
-                break;
-            case R.id.action_left_right:
-                cropImage.reverseImage(CropImageType.REVERSE_TYPE.LEFT_RIGHT);
-                break;
-            case R.id.action_crop:
-                Bitmap cropImageBitmap = cropImage.getCroppedImage();
-                Toast.makeText(
-                        this,
-                        "已保存到相册；剪切大小为 " + cropImageBitmap.getWidth() + " x "
-                                + cropImageBitmap.getHeight(),
-                        Toast.LENGTH_SHORT).show();
-                FileUtils.saveBitmapToCamera(this, cropImageBitmap, "crop.jpg");
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_freedom) {
+            cropImage.setFixedAspectRatio(false);
+        } else if (itemId == R.id.action_1_1) {
+            cropImage.setFixedAspectRatio(true);
+            cropImage.setAspectRatio(10, 10);
+        } else if (itemId == R.id.action_3_2) {
+            cropImage.setFixedAspectRatio(true);
+            cropImage.setAspectRatio(30, 20);
+        } else if (itemId == R.id.action_4_3) {
+            cropImage.setFixedAspectRatio(true);
+            cropImage.setAspectRatio(40, 30);
+        } else if (itemId == R.id.action_16_9) {
+            cropImage.setFixedAspectRatio(true);
+            cropImage.setAspectRatio(160, 90);
+        } else if (itemId == R.id.action_rotate) {
+            cropImage.rotateImage(90);
+        } else if (itemId == R.id.action_up_down) {
+            cropImage.reverseImage(CropImageType.REVERSE_TYPE.UP_DOWN);
+        } else if (itemId == R.id.action_left_right) {
+            cropImage.reverseImage(CropImageType.REVERSE_TYPE.LEFT_RIGHT);
+        } else if (itemId == R.id.action_crop) {
+            Bitmap cropImageBitmap = cropImage.getCroppedImage();
+            Toast.makeText(
+                    this,
+                    "已保存到相册；剪切大小为 " + cropImageBitmap.getWidth() + " x "
+                            + cropImageBitmap.getHeight(),
+                    Toast.LENGTH_SHORT).show();
+            FileUtils.saveBitmapToCamera(this, cropImageBitmap, "crop.jpg");
+        } else {
+            throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
         return false;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        int id = v.getId();
+        if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
+            this.finish();
+        } else if (id == R.id.btn_ok) {
+            Bitmap bit = cropImage.getCroppedImage();
+            FileUtils.writeImage(bit, mPath, 100);
 
-            case R.id.btn_cancel:
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
-                this.finish();
-                break;
-            case R.id.btn_ok:
-                Bitmap bit = cropImage.getCroppedImage();
-                FileUtils.writeImage(bit, mPath, 100);
-
-                Intent okData = new Intent();
-                okData.putExtra("camera_path", mPath);
-                setResult(RESULT_OK, okData);
-                this.finish();
-                break;
-            default:
-
-                break;
+            Intent okData = new Intent();
+            okData.putExtra("camera_path", mPath);
+            setResult(RESULT_OK, okData);
+            this.finish();
         }
     }
 }

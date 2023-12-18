@@ -135,27 +135,19 @@ public class ImageFilterActivity extends Activity implements View.OnClickListene
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
-            case R.id.btn_cancel :
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
-                recycle();
-                this.finish();
-
-                break;
-            case R.id.btn_ok :
-
-                FileUtils.writeImage(resultImg, picturePath, 100);
-                Intent intent = new Intent();
-                intent.putExtra("camera_path", picturePath);
-                setResult(Activity.RESULT_OK, intent);
-                recycle();
-                this.finish();
-                break;
-
-            default :
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
+            recycle();
+            this.finish();
+        } else if (id == R.id.btn_ok) {
+            FileUtils.writeImage(resultImg, picturePath, 100);
+            Intent intent = new Intent();
+            intent.putExtra("camera_path", picturePath);
+            setResult(Activity.RESULT_OK, intent);
+            recycle();
+            this.finish();
         }
 
     }
@@ -339,52 +331,37 @@ public class ImageFilterActivity extends Activity implements View.OnClickListene
         public void onClick(View view)
         {
             // Log.i("jarlen", " view.getId = " + view.getId());
-            switch (view.getId())
-            {
-                case R.id.filterWhite :
-                    filterType = FilterType.FILTER4WHITELOG;
-                    break;
-                case R.id.filterGray :
-                    filterType = FilterType.FILTER4GRAY;
-                    break;
-                case R.id.filterBlackWhite :
-                    filterType = FilterType.FILTER4BlackWhite;
-                    break;
-                case R.id.filterMosatic :
-                    filterType = FilterType.FILTER4MOSATIC;
-                    break;
-                case R.id.filterComics :
-                    filterType = FilterType.FILTER4COMICS;
-                    break;
-                case R.id.filterBrown :
-                    filterType = FilterType.FILTER4BROWN;
-                    break;
-                case R.id.filterLOMO :
-                    filterType = FilterType.FILTER4LOMO;
-                    break;
-                case R.id.filterNegative :
-                    filterType = FilterType.FILTER4NEGATIVE;
-                    break;
-                case R.id.filterNostalgic :
-                    filterType = FilterType.FILTER4NOSTALGIC;
-                    break;
-                case R.id.filterOverExposure :
-                    filterType = FilterType.FILTER4OVEREXPOSURE;
-                    break;
-                case R.id.filterSketchPencil :
-                    filterType = FilterType.FILTER4SKETCH_PENCIL;
-                    break;
+            int id = view.getId();
+            if (id == R.id.filterWhite) {
+                filterType = FilterType.FILTER4WHITELOG;
+            } else if (id == R.id.filterGray) {
+                filterType = FilterType.FILTER4GRAY;
+            } else if (id == R.id.filterBlackWhite) {
+                filterType = FilterType.FILTER4BlackWhite;
+            } else if (id == R.id.filterMosatic) {
+                filterType = FilterType.FILTER4MOSATIC;
+            } else if (id == R.id.filterComics) {
+                filterType = FilterType.FILTER4COMICS;
+            } else if (id == R.id.filterBrown) {
+                filterType = FilterType.FILTER4BROWN;
+            } else if (id == R.id.filterLOMO) {
+                filterType = FilterType.FILTER4LOMO;
+            } else if (id == R.id.filterNegative) {
+                filterType = FilterType.FILTER4NEGATIVE;
+            } else if (id == R.id.filterNostalgic) {
+                filterType = FilterType.FILTER4NOSTALGIC;
+            } else if (id == R.id.filterOverExposure) {
+                filterType = FilterType.FILTER4OVEREXPOSURE;
+            } else if (id == R.id.filterSketchPencil) {
+                filterType = FilterType.FILTER4SKETCH_PENCIL;
 
                 // +6 by jarlen 2014/11/9
-                case R.id.filterSoftness :
-                    filterType = FilterType.FILTER4SOFTNESS;
-                    break;
-                case R.id.filterNiHong :
-                    filterType = FilterType.FILTER4NiHong;
-                    break;
-                case R.id.filterSketch :
-                    filterType = FilterType.FILTER4SKETCH;
-                    break;
+            } else if (id == R.id.filterSoftness) {
+                filterType = FilterType.FILTER4SOFTNESS;
+            } else if (id == R.id.filterNiHong) {
+                filterType = FilterType.FILTER4NiHong;
+            } else if (id == R.id.filterSketch) {
+                filterType = FilterType.FILTER4SKETCH;
                 // case R.id.filterCarving :
                 // filterType = FilterType.FILTER4CARVING;
                 // break;
@@ -394,9 +371,6 @@ public class ImageFilterActivity extends Activity implements View.OnClickListene
                 // case R.id.filterRuiHua :
                 // filterType = FilterType.FILTER4RUIHUA;
                 // break;
-
-                default :
-                    break;
             }
 
             updatePicture(1);

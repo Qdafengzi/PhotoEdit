@@ -134,58 +134,47 @@ public class DrawBaseActivity extends Activity implements Toolbar.OnMenuItemClic
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_paint_one:
-                Bitmap paintBitmap1 = BitmapFactory.decodeResource(
-                        this.getResources(), R.drawable.marker);
-                casualWaterUtil.creatDrawPainter(
-                        DrawAttribute.DrawStatus.PEN_WATER, paintBitmap1,
-                        0xffadb8bd);
-                break;
-            case R.id.action_paint_two:
-                Bitmap paintBitmap2 = BitmapFactory.decodeResource(
-                        this.getResources(), R.drawable.crayon);
-                casualWaterUtil.creatDrawPainter(
-                        DrawAttribute.DrawStatus.PEN_CRAYON, paintBitmap2,
-                        0xffadb8bd);
-                break;
-            case R.id.action_size:
-                BitmapFactory.Options option = new BitmapFactory.Options();
-                option.inSampleSize = 2;
-                Bitmap paintBitmap3 = BitmapFactory.decodeResource(
-                        this.getResources(), R.drawable.marker, option);
-                casualWaterUtil.creatDrawPainter(
-                        DrawAttribute.DrawStatus.PEN_WATER, paintBitmap3,
-                        0xffadb8bd);
-                break;
-            case R.id.action_eraser:
-                Bitmap paintBitmap6 = BitmapFactory.decodeResource(
-                        this.getResources(), R.drawable.eraser);
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_paint_one) {
+            Bitmap paintBitmap1 = BitmapFactory.decodeResource(
+                    this.getResources(), R.drawable.marker);
+            casualWaterUtil.creatDrawPainter(
+                    DrawAttribute.DrawStatus.PEN_WATER, paintBitmap1,
+                    0xffadb8bd);
+        } else if (itemId == R.id.action_paint_two) {
+            Bitmap paintBitmap2 = BitmapFactory.decodeResource(
+                    this.getResources(), R.drawable.crayon);
+            casualWaterUtil.creatDrawPainter(
+                    DrawAttribute.DrawStatus.PEN_CRAYON, paintBitmap2,
+                    0xffadb8bd);
+        } else if (itemId == R.id.action_size) {
+            BitmapFactory.Options option = new BitmapFactory.Options();
+            option.inSampleSize = 2;
+            Bitmap paintBitmap3 = BitmapFactory.decodeResource(
+                    this.getResources(), R.drawable.marker, option);
+            casualWaterUtil.creatDrawPainter(
+                    DrawAttribute.DrawStatus.PEN_WATER, paintBitmap3,
+                    0xffadb8bd);
+        } else if (itemId == R.id.action_eraser) {
+            Bitmap paintBitmap6 = BitmapFactory.decodeResource(
+                    this.getResources(), R.drawable.eraser);
 
-                casualWaterUtil.creatDrawPainter(
-                        DrawAttribute.DrawStatus.PEN_ERASER, paintBitmap6,
-                        0xffadb8bd);
-                break;
-            case R.id.action_color:
-                Bitmap paintBitmap4 = BitmapFactory.decodeResource(
-                        this.getResources(), R.drawable.marker);
-                casualWaterUtil.creatDrawPainter(
-                        DrawAttribute.DrawStatus.PEN_WATER, paintBitmap4,
-                        0xff002200);
-                break;
+            casualWaterUtil.creatDrawPainter(
+                    DrawAttribute.DrawStatus.PEN_ERASER, paintBitmap6,
+                    0xffadb8bd);
+        } else if (itemId == R.id.action_color) {
+            Bitmap paintBitmap4 = BitmapFactory.decodeResource(
+                    this.getResources(), R.drawable.marker);
+            casualWaterUtil.creatDrawPainter(
+                    DrawAttribute.DrawStatus.PEN_WATER, paintBitmap4,
+                    0xff002200);
+        } else if (itemId == R.id.action_pic) {
+            int[] res = new int[]{R.drawable.stamp0star,
+                    R.drawable.stamp1star, R.drawable.stamp2star,
+                    R.drawable.stamp3star};
 
-            case R.id.action_pic:
-                int[] res = new int[]{R.drawable.stamp0star,
-                        R.drawable.stamp1star, R.drawable.stamp2star,
-                        R.drawable.stamp3star};
-
-                casualWaterUtil.creatStampPainter(
-                        DrawAttribute.DrawStatus.PEN_STAMP, res, 0xff00ff00);
-                break;
-
-            default:
-
-                break;
+            casualWaterUtil.creatStampPainter(
+                    DrawAttribute.DrawStatus.PEN_STAMP, res, 0xff00ff00);
         }
         return false;
     }
@@ -193,29 +182,22 @@ public class DrawBaseActivity extends Activity implements Toolbar.OnMenuItemClic
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.btn_cancel:
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
+        int id = v.getId();
+        if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
 
-                this.finish();
+            this.finish();
+        } else if (id == R.id.btn_ok) {
+            Bitmap bit = casualWaterUtil.getBitmap();
 
-                break;
-            case R.id.btn_ok:
-                Bitmap bit = casualWaterUtil.getBitmap();
+            FileUtils.writeImage(bit, mPath, 100);
 
-                FileUtils.writeImage(bit, mPath, 100);
+            Intent okData = new Intent();
+            okData.putExtra("camera_path", mPath);
+            setResult(RESULT_OK, okData);
 
-                Intent okData = new Intent();
-                okData.putExtra("camera_path", mPath);
-                setResult(RESULT_OK, okData);
-
-                this.finish();
-
-                break;
-            default:
-
-                break;
+            this.finish();
         }
     }
 }

@@ -114,27 +114,16 @@ public class EnhanceActivity extends Activity implements View.OnClickListener, S
 
         int type = 0;
 
-        switch (seekBar.getId())
-        {
-            case R.id.saturation :
-                pe.setSaturation(pregress);
-                type = pe.Enhance_Saturation;
-
-                break;
-            case R.id.brightness :
-                pe.setBrightness(pregress);
-                type = pe.Enhance_Brightness;
-
-                break;
-
-            case R.id.contrast :
-                pe.setContrast(pregress);
-                type = pe.Enhance_Contrast;
-
-                break;
-
-            default :
-                break;
+        int id = seekBar.getId();
+        if (id == R.id.saturation) {
+            pe.setSaturation(pregress);
+            type = pe.Enhance_Saturation;
+        } else if (id == R.id.brightness) {
+            pe.setBrightness(pregress);
+            type = pe.Enhance_Brightness;
+        } else if (id == R.id.contrast) {
+            pe.setContrast(pregress);
+            type = pe.Enhance_Contrast;
         }
 
         bit = pe.handleImage(type);
@@ -145,29 +134,19 @@ public class EnhanceActivity extends Activity implements View.OnClickListener, S
     @Override
     public void onClick(View view)
     {
-        switch (view.getId())
-        {
-
-            case R.id.btn_ok :
-
-                FileUtils.writeImage(bit, imgPath, 100);
-                Intent okData = new Intent();
-                okData.putExtra("camera_path", imgPath);
-                setResult(RESULT_OK, okData);
-                recycle();
-                this.finish();
-                break;
-
-            case R.id.btn_cancel :
-
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
-                recycle();
-                this.finish();
-                break;
-
-            default :
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_ok) {
+            FileUtils.writeImage(bit, imgPath, 100);
+            Intent okData = new Intent();
+            okData.putExtra("camera_path", imgPath);
+            setResult(RESULT_OK, okData);
+            recycle();
+            this.finish();
+        } else if (id == R.id.btn_cancel) {
+            Intent cancelData = new Intent();
+            setResult(RESULT_CANCELED, cancelData);
+            recycle();
+            this.finish();
         }
 
     }
